@@ -1,13 +1,17 @@
 package com.heally.springmvctraining.codefellowship;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 @Entity
-public class ApplicationUser {
+public class ApplicationUser implements UserDetails {
 
     /**
      * A unique id for the user.
@@ -20,6 +24,7 @@ public class ApplicationUser {
 
     private String lastName;
 
+    @UniqueElements
     private String username;
 
     private String password;
@@ -27,6 +32,14 @@ public class ApplicationUser {
     private String bio;
 
     private Date dateOfBirth;
+
+    private final static String defaultProfilePic = "/default_profile.jpg";
+
+    /**
+     * A list of posts created and owned by the user.
+     */
+    @OneToMany
+    private final List<Post> posts = new LinkedList<Post>();
 
     /**
      * Default constructor.
@@ -52,8 +65,38 @@ public class ApplicationUser {
         this.dateOfBirth = dateOfBirth;
     }
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setUsername(String username) {
@@ -90,5 +133,30 @@ public class ApplicationUser {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public static String getDefaultProfilePic() {
+        return defaultProfilePic;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    /**
+     * Add a post to this users list.
+     * @param post The post to add.
+     */
+    public void addPost(Post post) {
+        posts.add(post);
+    }
+
+    @Override
+    public String toString() {
+        return this.username + " (" + this.lastName + ", " + this.firstName + ")";
     }
 }

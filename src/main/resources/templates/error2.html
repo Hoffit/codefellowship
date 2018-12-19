@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common :: head">
+</head>
+<body>
+<div th:replace="common :: nav"></div>
+<p>You messed up (am i graceful?)</p>
+<p>Status: <span th:text="${status}"></span>
+<p>Error: <span th:text="${error}"></span>
+<p>Message: <span th:text="${message}"></span>
+</body>
+</html>

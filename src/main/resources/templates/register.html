@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>User Registration</title>
-    <link rel="stylesheet" href="/style.css">
+<head th:replace="common :: head">
 </head>
 <body>
+<div th:replace="common :: nav"></div>
 <h1>The Code Fellows Fellowship</h1>
 <p>Register a new user account</p>
 <form action="/users" method="POST">

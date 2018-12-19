@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head th:replace="common :: head">
+</head>
+<body>
+<div th:replace="common :: nav"></div>
+<h1>The Code Fellows Fellowship</h1>
+<img th:src="${user.defaultProfilePic}">
+<label th:text="${user.firstName}">First Name:</label>
+<label th:text="${user.lastName}">Last Name:</label>
+<label th:text="${user.username}">User Name:</label>
+<label th:text="${user.bio}">Bio:</label>
+<label th:text="${user.dateOfBirth}">Date Of Birth:</label>
+<H1>Create a new post!</H1>
+<form th:action="${'/users/' + user.id + '/add-post'}" method="POST">
+    <label for="body">Post</label>
+    <input type="text" id="body" name="body" />
+    <input type="submit" \>
+</form>
+<h1>You're posts!</h1>
+<table>
+    <thead>
+    <tr>
+        <th colspan="1">Created</th>
+        <th colspan="1">Post</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="post : ${user.posts}">
+        <td th:text="${post.createdAt}"></td>
+        <td th:text="${post.body}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
