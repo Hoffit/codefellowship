@@ -22,6 +22,12 @@ public class ApplicationUserController {
     @Autowired
     private ApplicationUserRepository userRepository;
 
+    /**
+     * A spring repository (JPA) of posts.
+     */
+    @Autowired
+    private PostRepository postRepository;
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -53,5 +59,17 @@ public class ApplicationUserController {
         ApplicationUser user = new ApplicationUser(firstName, lastName, userName, bCryptPasswordEncoder.encode(password), bio, dateOfBirth);
         userRepository.save(user);
         return new RedirectView("/users/" + user.getId());
+    }
+
+    //TODO enhance to support up to the second
+    @PostMapping("/users/{userId}/add-post")
+    public RedirectView addPost(@PathVariable long userId,
+                                @RequestParam String body) {
+        ApplicationUser user = userRepository.findById(userId).get();
+        Post post = new Post(body, new Date());
+        user.addPost(post);
+        postRepository.save(post);
+        userRepository.save(user);
+        return new RedirectView("/users/{userId}");
     }
 }

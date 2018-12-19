@@ -12,6 +12,6 @@ public class ErrorController {
 
     @GetMapping("/error")
     public String index(Model model) {
-        return "error";
+        return "error2";
     }
 }
