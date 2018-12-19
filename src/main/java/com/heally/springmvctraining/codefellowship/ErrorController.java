@@ -12,6 +12,8 @@ public class ErrorController {
 
     @GetMapping("/error")
     public String index(Model model) {
-        return "error2";
+        //TODO need to sys out a stack trace...but where is it???
+        System.out.println("error");
+        return "error";
     }
 }
