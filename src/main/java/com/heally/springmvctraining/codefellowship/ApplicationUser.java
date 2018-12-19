@@ -1,5 +1,7 @@
 package com.heally.springmvctraining.codefellowship;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,6 +29,8 @@ public class ApplicationUser {
     private String bio;
 
     private Date dateOfBirth;
+
+    private final static String defaultProfilePic = "/default_profile.jpg";
 
     /**
      * Default constructor.
@@ -90,5 +94,13 @@ public class ApplicationUser {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public static String getDefaultProfilePic() {
+        return defaultProfilePic;
+    }
+
+    public long getId() {
+        return id;
     }
 }

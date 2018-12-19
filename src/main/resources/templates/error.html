@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Code Fellowship Web Application Error</title>
+<head th:replace="common :: head">
 </head>
 <body>
-    <p>You messed up (gracefully!)</p>
+<div th:replace="common :: nav"></div>
+<p>You messed up (am i graceful?)</p>
+<p>Status: <span th:text="${status}"></span>
+<p>Error: <span th:text="${error}"></span>
+<p>Message: <span th:text="${message}"></span>
 </body>
 </html>
