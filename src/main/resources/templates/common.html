@@ -10,10 +10,15 @@
 <body>
 <div th:fragment="nav" id="navigation">
     <nav>
-        <a href="/">Home</a>
-        <a href="/users">Users</a>
-        <a href="/register">Registration</a>
-        <a href="/login">Login</a>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/users">Users</a></li>
+            <li><a href="/register">Registration</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/perform_logout">logout</a></li>
+            <li> </li>
+            <li>Logged in as "${user}"</li>
+        </ul>
     </nav>
 </div>
 </body>

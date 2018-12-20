@@ -41,11 +41,6 @@ public class ApplicationUserController {
         return "login";
     }
 
-//    @PostMapping("/login")
-//    public String login(Model model) {
-//        return "login";
-//    }
-
     @GetMapping("/register")
     public String index(Model model) {
         return "register";
@@ -58,10 +53,25 @@ public class ApplicationUserController {
     }
 
     @GetMapping("/users/{userId}")
-    public String getUser(@PathVariable long userId, Model model) {
+    public String getUser(
+            Principal p,
+            @PathVariable long userId,
+            Model model) {
         model.addAttribute("user", userRepository.findById(userId).get());
+        model.addAttribute("principal", p);
         return "userDetail";
     }
+
+    @GetMapping("/myProfile")
+    public String getUserProfile(
+            Principal p,
+            Model model) {
+        ApplicationUser loggedInUser = (ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
+        model.addAttribute("user", loggedInUser);
+        model.addAttribute("principal", p);
+        return "userDetail";
+    }
+
 
     @PostMapping("/register")
     public RedirectView create(
@@ -71,7 +81,7 @@ public class ApplicationUserController {
             @RequestParam String password,
             @RequestParam String bio,
             @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date dateOfBirth) {
-        ApplicationUser user = new ApplicationUser(firstName, lastName, userName, bCryptPasswordEncoder.encode(password), bio, dateOfBirth);
+        ApplicationUser user = new ApplicationUser(firstName, lastName, userName, bCryptPasswordEncoder.encode(password), bio, dateOfBirth.toString().substring(0, 9));
         userRepository.save(user);
         Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -79,14 +89,23 @@ public class ApplicationUserController {
     }
 
     @PostMapping("/users/{userId}/add-post")
-    public RedirectView addPost(Principal p,
-                                @PathVariable long userId,
-                                @RequestParam String body) {
-        ApplicationUser user = userRepository.findById(userId).get();
-        Post post = new Post(body, new Date());
-        user.addPost(post);
+    public RedirectView addPost(
+            Principal p,
+            @PathVariable long userId,
+            @RequestParam String body) {
+        ApplicationUser loggedInUser = (ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
+        ApplicationUser postingUser = userRepository.findById(userId).get();
+        //TODO Refine with better pattern for error condition
+        if (loggedInUser.getId() != postingUser.getId()) {
+            System.out.println("Error: attempt to post to another users account rejected.");
+            return new RedirectView("/users/{userId}");
+        }
+        Post post = new Post(body, new Date().toString().substring(0, 19), postingUser);
+        postingUser.addPost(post);
         postRepository.save(post);
-        userRepository.save(user);
+        userRepository.save(postingUser);
         return new RedirectView("/users/{userId}");
     }
+
+
 }
