@@ -33,9 +33,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().disable()
                 .csrf().disable()
                 .authorizeRequests()
+                    .antMatchers("/*.css").permitAll()
                     .antMatchers("/").permitAll()
-                    .antMatchers("/login*").permitAll()
-                    .antMatchers("/register*").permitAll()
+                    .antMatchers("/login").permitAll()
+                    .antMatchers("/register").permitAll()
                     .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -48,4 +49,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutUrl("/perform_logout")
                     .deleteCookies("JSESSIONID");
     }
+
+//    @Override
+//    @Bean
+//    public AuthenticationManager authenticationManagerBean() throws Exception {
+//        return super.authenticationManagerBean();
+//    }
 }

@@ -2,6 +2,9 @@ package com.heally.springmvctraining.codefellowship;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Controller
@@ -31,6 +36,16 @@ public class ApplicationUserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @GetMapping("/login")
+    public String login(Model model) {
+        return "login";
+    }
+
+//    @PostMapping("/login")
+//    public String login(Model model) {
+//        return "login";
+//    }
+
     @GetMapping("/register")
     public String index(Model model) {
         return "register";
@@ -48,7 +63,7 @@ public class ApplicationUserController {
         return "userDetail";
     }
 
-    @PostMapping("/users")
+    @PostMapping("/register")
     public RedirectView create(
             @RequestParam String firstName,
             @RequestParam String lastName,
@@ -58,12 +73,14 @@ public class ApplicationUserController {
             @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date dateOfBirth) {
         ApplicationUser user = new ApplicationUser(firstName, lastName, userName, bCryptPasswordEncoder.encode(password), bio, dateOfBirth);
         userRepository.save(user);
-        return new RedirectView("/users/" + user.getId());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return new RedirectView("/");
     }
 
-    //TODO enhance to support up to the second
     @PostMapping("/users/{userId}/add-post")
-    public RedirectView addPost(@PathVariable long userId,
+    public RedirectView addPost(Principal p,
+                                @PathVariable long userId,
                                 @RequestParam String body) {
         ApplicationUser user = userRepository.findById(userId).get();
         Post post = new Post(body, new Date());

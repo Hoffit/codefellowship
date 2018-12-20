@@ -14,6 +14,6 @@ public class ErrorController {
     public String index(Model model) {
         //TODO need to sys out a stack trace...but where is it???
         System.out.println("error");
-        return "error";
+        return "error2";
     }
 }

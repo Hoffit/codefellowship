@@ -12,13 +12,14 @@
 <label th:text="${user.username}">User Name:</label>
 <label th:text="${user.bio}">Bio:</label>
 <label th:text="${user.dateOfBirth}">Date Of Birth:</label>
-<H1>Create a new post!</H1>
+<p>Create a new post!</p>
 <form th:action="${'/users/' + user.id + '/add-post'}" method="POST">
     <label for="body">Post</label>
     <input type="text" id="body" name="body" />
     <input type="submit" \>
 </form>
-<h1>You're posts!</h1>
+<br>
+<p>Your post history</p>
 <table>
     <thead>
     <tr>
