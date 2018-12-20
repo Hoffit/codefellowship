@@ -24,7 +24,7 @@ public class ApplicationUser implements UserDetails {
 
     private String lastName;
 
-    @UniqueElements
+    @Column(unique = true)
     private String username;
 
     private String password;
