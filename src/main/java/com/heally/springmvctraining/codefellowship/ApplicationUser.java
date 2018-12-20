@@ -1,12 +1,10 @@
 package com.heally.springmvctraining.codefellowship;
 
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,7 +29,7 @@ public class ApplicationUser implements UserDetails {
 
     private String bio;
 
-    private Date dateOfBirth;
+    private String dateOfBirth;
 
     private final static String defaultProfilePic = "/default_profile.jpg";
 
@@ -56,7 +54,7 @@ public class ApplicationUser implements UserDetails {
      * @param bio User bio.
      * @param dateOfBirth User date of birth.
      */
-    public ApplicationUser(String firstName, String lastName, String userName, String password, String bio, Date dateOfBirth) {
+    public ApplicationUser(String firstName, String lastName, String userName, String password, String bio, String dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = userName;
@@ -119,11 +117,11 @@ public class ApplicationUser implements UserDetails {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

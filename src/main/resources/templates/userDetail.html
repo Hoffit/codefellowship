@@ -12,12 +12,14 @@
 <label th:text="${user.username}">User Name:</label>
 <label th:text="${user.bio}">Bio:</label>
 <label th:text="${user.dateOfBirth}">Date Of Birth:</label>
-<p>Create a new post!</p>
-<form th:action="${'/users/' + user.id + '/add-post'}" method="POST">
-    <label for="body">Post</label>
-    <input type="text" id="body" name="body" />
-    <input type="submit" \>
-</form>
+<div th:if="${principal.name == (user.username)}">
+    <p>Create a new post!</p>
+    <form th:action="${'/users/' + user.id + '/add-post'}" method="POST">
+        <label for="body">Post</label>
+        <input type="text" id="body" name="body" />
+        <input type="submit" \>
+    </form>
+</div>
 <br>
 <p>Your post history</p>
 <table>

@@ -1,10 +1,6 @@
 package com.heally.springmvctraining.codefellowship;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.*;
 
 @Entity
 public class Post {
@@ -22,7 +18,13 @@ public class Post {
 
     private String body;
 
-    private Date createdAt;
+    private String createdAt;
+
+    /**
+     * ApplicationUser this post belongs to.
+     */
+    @ManyToOne
+    private ApplicationUser user;
 
     /**
      * Default constructor.
@@ -31,20 +33,43 @@ public class Post {
         super();
     }
 
-    public Post(String body, Date createdAt) {
+    /**
+     * Constructor.
+     * @param body The post.
+     * @param createdAt The timestamp of when this post was created.
+     * @param user The user to which this post belongs.
+     */
+    public Post(String body, String createdAt, ApplicationUser user) {
         this.body = body;
         this.createdAt = createdAt;
+        this.user = user;
     }
 
-    public Date getCreatedAt() {
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
     public long getId() {
         return id;
+    }
+
+    /**
+     * Getter.
+     * @return The user to which the post belongs.
+     */
+    public ApplicationUser getApplicationUser() {
+        return user;
+    }
+
+    /**
+     * Setter.
+     * @param user The user to which the post belongs.
+     */
+    public void setApplicationUser(ApplicationUser user) {
+        this.user = user;
     }
 }
