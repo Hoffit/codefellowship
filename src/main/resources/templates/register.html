@@ -1,26 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
 <head th:replace="common :: head">
 </head>
 <body>
-<div th:replace="common :: nav"></div>
-<h1>The Code Fellows Fellowship</h1>
-<p>Register a new user account</p>
-<form action="/register" method="POST">
-    <label for="firstName">First Name:</label>
-    <input type="text" id="firstName" name="firstName" />
-    <label for="lastName">Last Name:</label>
-    <input type="text" id="lastName" name="lastName" />
-    <label for="userName">User Name:</label>
-    <input type="text" id="userName" name="userName" />
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" />
-    <label for="bio">Bio:</label>
-    <input type="text" id="bio" name="bio" />
-    <label for="dateOfBirth">Date Of Birth:</label>
-    <input type="date" id="dateOfBirth" name="dateOfBirth" />
-    <input type="submit" \>
-</form>
+<div class="container">
+    <div th:replace="common :: nav"></div>
+    <h2>The Code Fellows Fellowship</h2>
+    <p th:if="${loggedInUser != null}"><a href="/perform_logout">Logout</a> to register a new account</p>
+        <div th:if="${loggedInUser == null}" class="panel-group">
+            <div class="panel-heading">Create a new account</div>
+            <div class="panel-body">
+                <form action="/register" method="POST">
+                    <table class="table borderless">
+                        <tbody>
+                        <tr>
+                            <td><label for="firstName">First Name:</label></td>
+                            <td><input type="text" id="firstName" name="firstName" /></td>
+                            <td><label for="lastName">Last Name:</label></td>
+                            <td><input type="text" id="lastName" name="lastName" /></td>
+                        </tr>
+                        <tr>
+                            <td><label for="userName">User Name:</label></td>
+                            <td><input type="text" id="userName" name="userName" /></td>
+                            <td><label for="password">Password:</label></td>
+                            <td><input type="password" id="password" name="password" /></td>
+                        </tr>
+                        <tr>
+                            <td><label for="bio">Bio:</label></td>
+                            <td><input type="text" id="bio" name="bio" /></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><label for="dateOfBirth">Date Of Birth:</label></td>
+                            <td><input type="date" id="dateOfBirth" name="dateOfBirth" /></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td><input type="submit"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

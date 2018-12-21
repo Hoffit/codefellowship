@@ -6,24 +6,17 @@
 <div class="container">
     <div th:replace="common :: nav"></div>
     <h2>The Code Fellows Fellowship</h2>
-    <p>This is the place to collaborate with fellow coders, in order to learn from, and teach others.</p>
     <div class="panel-group">
         <div class="panel panel-default">
-            <div class="panel-heading"></div>
+            <div class="panel-heading"><p>You messed up</p></div>
             <div class="panel-body">
-                <p>Sign up and <a href="/register">join</a> the fellowship!</p>
+                <p>Status: <span th:text="${status}"></span>
+                <p>Error: <span th:text="${error}"></span>
+                <p>Message: <span th:text="${message}"></span>
+                <p>Message: <span th:text="${path}"></span>
             </div>
         </div>
     </div>
 </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
