@@ -4,16 +4,24 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CodeFellowshipApplicationTests {
+
+    @LocalServerPort
+    private int port;
 
 	@Autowired
 	private ApplicationUserController controller;
+
+    @Autowired
+    private TestRestTemplate restTemplate;
 
 	@Test
 	public void contextLoads() {
@@ -21,27 +29,10 @@ public class CodeFellowshipApplicationTests {
 	}
 
 	@Test
-    public void homePageLoads() {
-	    //get request
-        //get response
-        //not null
-        //not error
-        //200 family
-        //hacky <h1>hello<h1>
-
+    public void getHomeWorks() {
+        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
+                String.class)).contains("The Code Fellows Fellowship");
     }
-
-//    @LocalServerPort
-//    private int port;
-//
-//    @Autowired
-//    private TestRestTemplate restTemplate;
-//
-//    @Test
-//    public void greetingShouldReturnDefaultMessage() throws Exception {
-//        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
-//                String.class)).contains("Hello World");
-//    }
 
 }
 

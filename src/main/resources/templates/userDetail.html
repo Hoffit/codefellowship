@@ -7,18 +7,24 @@
     <div th:replace="common :: nav"></div>
     <h2>The Code Fellows Fellowship</h2>
     <div class="panel-group">
-        <div class="panel panel-default">
-            <div class="panel-heading">User Profile Details</div>
+        <div class="panel panel-default padding-bottom">
             <div class="panel-body">
-                    <ul class="list-unstyled">
-                        <li>Name: <span th:text="${user.firstName + ' ' + user.lastName}"></span></li>
-                        <li>Username: <span th:text="${user.username}"></span></li>
-                        <li>Bio: <span th:text="${user.bio}"></span></li>
-                        <li>DOB: <span th:text="${user.dateOfBirth}"></span></li>
-                    </ul>
+                <img th:src="${user.defaultProfilePic}">
+                <span th:text="${user.firstName + ' ' + user.lastName}"></span>
+                <span th:text="${'(' + user.username} + ')'">()</span>
+                <br>
+                Birthday: <span th:text="${user.dateOfBirth}"></span>
+                <br>
+                <span th:text="${user.bio}"></span>
+                <br>
+                <div th:if="${user.username != (loggedInUser.username)}">
+                    <form th:action="${'/users/' + user.id + '/add-followed'}" method="POST">
+                        <input type="submit" value="Follow" class="btn btn-primary">
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="panel panel-default"  th:if="${user.username == (loggedInUser.username)}">
+        <div class="panel panel-default padding-bottom" th:if="${user.username == (loggedInUser.username)}">
             <div class="panel-heading">Post a new topic:</div>
             <div class="panel-body">
                 <form th:action="${'/users/' + user.id + '/add-post'}" method="POST">

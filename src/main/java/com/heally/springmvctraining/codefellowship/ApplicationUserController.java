@@ -132,10 +132,10 @@ public class ApplicationUserController {
     }
 
     /**
-     * 
+     * Route to the currently logged in users profile page.
      * @param model The Spring Model object.
      * @param p The Swing security principal.
-     * @return
+     * @return The route to the userDetail page for the logged in user.
      */
     @GetMapping("/myProfile")
     public String getMyProfile(
@@ -148,13 +148,12 @@ public class ApplicationUserController {
     }
 
     /**
-     * 
+     * Adds a new application user to the Spring repository.
      * @param p The Swing security principal.
      * @param model The Spring Model object.
      * @param firstName
      * @param lastName
      * @param userName
-     * @param p The Swing security principal.assword
      * @param bio
      * @param dateOfBirth
      * @return
@@ -177,7 +176,7 @@ public class ApplicationUserController {
     }
 
     /**
-     * 
+     *
      * @param p The Swing security principal.
      * @param userId The user id.
      * @param body The post.
@@ -200,5 +199,43 @@ public class ApplicationUserController {
         postRepository.save(post);
         userRepository.save(postingUser);
         return new RedirectView("/users/{userId}");
+    }
+
+    /**
+     * A route that allows followerUserId to follow followedUserId.
+     * @param p The Swing security principal.
+     * @param followedUserId The user being followed.
+     * @return The redirect route to the list of users page.
+     */
+    @PostMapping("/users/{followedUserId}/add-followed")
+    public RedirectView addFollowing(
+            Principal p,
+            @PathVariable long followedUserId) {
+        ApplicationUser loggedInUser = (ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
+        ApplicationUser followerUser = userRepository.findById(loggedInUser.getId()).get();
+        //TODO Refine with better pattern for error condition
+        ApplicationUser followedUser = userRepository.findById(followedUserId).get();
+        if (loggedInUser.getId() == followedUser.getId()) {
+            System.out.println("Error: attempt to follow yourself rejected.");
+            return new RedirectView("/users/{userId}");
+        }
+        followerUser.addFollowedUser(followedUser);
+        userRepository.save(followerUser);
+        return new RedirectView("/feed");
+    }
+
+    /**
+     * Route to get the aggregate posts of users being followed by the logged in user.
+     * @param model The Spring Model object.
+      * @param p The Swing security principal.
+     * @return The route to the followed users feed.
+     */
+    @GetMapping("/feed")
+    public String getFeed(
+            Principal p,
+            Model model) {
+        ApplicationUser loggedInUser = (ApplicationUser) ((UsernamePasswordAuthenticationToken)p).getPrincipal();
+        model.addAttribute("loggedInUser", userRepository.findById(loggedInUser.getId()).get());
+        return "feed";
     }
 }

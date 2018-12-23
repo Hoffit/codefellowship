@@ -7,7 +7,7 @@
     <div th:replace="common :: nav"></div>
     <h2>The Code Fellows Fellowship</h2>
     <p>This is the place to collaborate with fellow coders, in order to learn from, and teach others.</p>
-    <div class="panel-group">
+    <div th:if="${loggedInUser == null}" class="panel-group">
         <div class="panel panel-default">
             <div class="panel-heading"></div>
             <div class="panel-body">

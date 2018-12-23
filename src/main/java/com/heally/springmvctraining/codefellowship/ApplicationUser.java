@@ -67,7 +67,7 @@ public class ApplicationUser implements UserDetails {
      * A list of application users that the user is following.
      */
     @OneToMany
-    private final List<ApplicationUser> following = new LinkedList<>();
+    private final List<ApplicationUser> followedUser = new LinkedList<>();
 
     /**
      * Default constructor.
@@ -264,16 +264,16 @@ public class ApplicationUser implements UserDetails {
      * Getter.
      * @return The list of users followed.
      */
-    public List<ApplicationUser> getFollowing() {
-        return following;
+    public List<ApplicationUser> getFollowedUsers() {
+        return followedUser;
     }
 
     /**
      * Add a new followed user.
-     * @param userToFollow The new user being followed.
+     * @param userToFollow The user being followed.
      */
-    public void addFollowing(ApplicationUser userToFollow) {
-        this.following.add(userToFollow);
+    public void addFollowedUser(ApplicationUser userToFollow) {
+        this.followedUser.add(userToFollow);
     }
 
     /**
