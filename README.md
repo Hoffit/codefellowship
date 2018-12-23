@@ -25,7 +25,6 @@ It's home is in github: https://github.com/Hoffit/codefellowship
 ## Lab 17
 ### Feature Tasks
 #### Allow users to log in to CodeFellowship and create posts.
-
     Using the above cheat sheet, add the ability for users to log in to your app.
         Upon logging in, users should be taken to a /myprofile route that displays their information.
     Ensure that your homepage, login, and registration routes are accessible to non-logged in users. All other routes should be limited to logged-in users.
@@ -39,7 +38,6 @@ It's home is in github: https://github.com/Hoffit/codefellowship
 
 ## Lab 18
 ### Feature Tasks
-
     Ensure that users can’t perform SQL injection or HTML injection with their posts.
     Allow users to follow other users. Following a user means that their posts show up in the logged-in user’s feed, where they can see what all of their followed users have posted recently.
         Ensure there is some way (like a users index page) that a user can discover other users on the service.
@@ -51,7 +49,9 @@ It's home is in github: https://github.com/Hoffit/codefellowship
 
 ## Lab 19
 ### Feature Tasks
-// TODO
+    Complete any remaining tasks from CodeFellowship.
+    Polish your site’s look and feel.
+
 
 ## How to use it
 This is a learning/training lab based application. It's only intended to be run standalone on a developer workstation.
