@@ -9,24 +9,44 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+/**
+ * Spring security configuration for the Code Fellows blog app.
+ */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    /**
+     * The Swing data repository of users.
+     */
      @Autowired
      private UserDetailsServiceImpl userDetailsService;
 
+    /**
+     * The user password hash library.
+     * @return
+     */
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder;
     }
 
+    /**
+     *
+     * @param auth
+     * @throws Exception
+     */
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
+    /**
+     *
+     * @param http
+     * @throws Exception
+     */
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http

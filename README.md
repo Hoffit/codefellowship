@@ -64,7 +64,8 @@ the database to exist. Spring will take care of the rest. The database service m
 You can run this from IntelliJ, by selecting the Spring App class 'CodeFellowshipApplication', and selecting run or debug.
 
 You can also run from the command line using gradle.
-./gradlew /code-fellowship/out/production/classes/com/heally/springmvctraining/codefellowship
+./gradlew bootRun
+But - first - you might have to hard configure id/pw for db access in the application.properties file.
 
 ## API See javadoc
 ./javadoc/index.html

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<html>
 <head th:fragment="head">
     <meta charset="UTF-8">
     <title>The Code Fellows Fellowship</title>
@@ -9,17 +8,20 @@
 </head>
 <body>
 <div th:fragment="nav" id="navigation">
-    <nav>
-        <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/users">Users</a></li>
-            <li><a href="/register">Registration</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/perform_logout">logout</a></li>
-            <li> </li>
-            <li>Logged in as "${user}"</li>
-        </ul>
-    </nav>
+            <nav>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="/">Home</a></li>
+                    <li class="list-inline-item"><a href="/feed">Feed</a></li>
+                    <li class="list-inline-item"><a href="/myProfile">My Profile</a></li>
+                    <li class="list-inline-item"><a href="/users">Fellows</a></li>
+                    <li class="list-inline-item"><a href="/register">Registration</a></li>
+                    <li class="list-inline-item" th:if="${loggedInUser == null}"><a href="/login">Login</a></li>
+                    <li class="list-inline-item" th:if="${loggedInUser}"><a href="/perform_logout">logout</a></li>
+                    <!--/*@thymesVar id="loggedInUser" type="com.heally.springmvctraining.codefellowship.ApplicationUser"*/-->
+                    <li class="list-inline-item" th:if="${loggedInUser}"> </li>
+                    <li class="list-inline-item" th:if="${loggedInUser}">Logged in as <span th:text="${loggedInUser.username}"></span></li>
+                </ul>
+            </nav>
 </div>
 </body>
 </html>

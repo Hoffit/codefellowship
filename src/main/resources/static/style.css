@@ -1,11 +1,11 @@
-table, td, th {
-    border: 1px solid #ccc;
-}
-
 body {
     background-color: antiquewhite;
 }
 
 #navigation {
     background: chocolate;
+}
+
+.padding-bottom {
+    padding-bottom:20px;
 }

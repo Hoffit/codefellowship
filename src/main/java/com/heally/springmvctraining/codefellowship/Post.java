@@ -2,12 +2,11 @@ package com.heally.springmvctraining.codefellowship;
 
 import javax.persistence.*;
 
+/**
+ * The Post code fellows blog entity.
+ */
 @Entity
 public class Post {
-
-    public String getBody() {
-        return body;
-    }
 
     /**
      * A unique id for the post.
@@ -16,8 +15,14 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    /**
+     * The post.
+     */
     private String body;
 
+    /**
+     * The post's creation timestamp.
+     */
     private String createdAt;
 
     /**
@@ -45,14 +50,26 @@ public class Post {
         this.user = user;
     }
 
+    /**
+     * Getter.
+     * @return The post's creation timestamp.
+     */
     public String getCreatedAt() {
         return createdAt;
     }
 
+    /**
+     * Setter.
+     * @param createdAt The post's creation timestamp.
+     */
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
+    /**
+     * Getter.
+     * @return The post's unique id.
+     */
     public long getId() {
         return id;
     }
@@ -71,5 +88,13 @@ public class Post {
      */
     public void setApplicationUser(ApplicationUser user) {
         this.user = user;
+    }
+
+    /**
+     * Getter.
+     * @return The post.
+     */
+    public String getBody() {
+        return body;
     }
 }

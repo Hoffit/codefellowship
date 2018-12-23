@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * Custom Spring user details service for the code fellows blog app.
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -17,6 +20,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private ApplicationUserRepository userRepository;
 
+    /**
+     * Returns the ApplicationUser matching the passed in username, if it exists.
+     * @param username The username to find in the repository.
+     * @return The ApplicationUser if found.
+     * @throws UsernameNotFoundException Exception if not found.
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<ApplicationUser> optional = userRepository.findByUsername(username);
