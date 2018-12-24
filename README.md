@@ -66,6 +66,8 @@ You can run this from IntelliJ, by selecting the Spring App class 'CodeFellowshi
 You can also run from the command line using gradle.
 ./gradlew bootRun
 But - first - you might have to hard configure id/pw for db access in the application.properties file.
+See application.properties for comments and additional instructions.
+Another choice is to export id/pw environment variables.
 
 ## API See javadoc
 ./javadoc/index.html

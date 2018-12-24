@@ -30,9 +30,21 @@ public class CodeFellowshipApplicationTests {
 
 	@Test
     public void getHomeWorks() {
-        assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/",
+        assertThat(restTemplate.getForObject("http://localhost:" + port + "/",
                 String.class)).contains("The Code Fellows Fellowship");
     }
 
+    @Test
+    public void getLoginWorks() {
+        assertThat(restTemplate.getForObject("http://localhost:" + port + "/login",
+                String.class)).contains("Enter your username and password");
+    }
+
+    @Test
+    public void getRegisterWorks() {
+	    String requestResult = restTemplate.getForObject("http://localhost:" + port + "/register", String.class);
+        assertThat(requestResult.contains("to register a new account") ||
+                requestResult.contains("Create a new account"));
+    }
 }
 
